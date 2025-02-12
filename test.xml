@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="#embeddedXSL"?>
+
+<RXMLF>
+  <Module>
+    <ModulePrefs title="google.com"/>
+    <Content type="html"><![CDATA[
+      <!DOCTYPE html>
+      <html lang="en-us">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+          <title>Google.com</title>
+          <meta name="robots" content="noindex,nofollow" />
+        </head>
+        <body>
+          <h1>Welcome to RXMLF</h1>
+          <p>This is a test content inside XML.</p>
+        </body>
+      </html>
+    ]]></Content>
+  </Module>
+
+  <!-- Embedded XSL -->
+  <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="embeddedXSL">
+    <xsl:output method="html" indent="yes"/>
+    
+    <xsl:template match="/">
+      <html>
+        <head>
+          <title>Styled XML</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+              background-color: #f4f4f4;
+            }
+            h1 {
+              color: #333;
+            }
+            .module {
+              border: 1px solid #ddd;
+              padding: 10px;
+              background: white;
+              margin-bottom: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>RXMLF Content</h1>
+          <xsl:apply-templates/>
+        </body>
+      </html>
+    </xsl:template>
+
+    <xsl:template match="Module">
+      <div class="module">
+        <h2>Module: <xsl:value-of select="ModulePrefs/@title"/></h2>
+        <xsl:apply-templates select="Content"/>
+      </div>
+    </xsl:template>
+
+    <xsl:template match="Content">
+      <div>
+        <xsl:text disable-output-escaping="yes"/>
+        <xsl:value-of select="." disable-output-escaping="yes"/>
+      </div>
+    </xsl:template>
+
+  </xsl:stylesheet>
+</RXMLF>
